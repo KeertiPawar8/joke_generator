@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joke Generator</title>
+</head>
+<body>
+    
+    <input id = "data" type="text" placeholder="write a type of joke">
+    <button id = "btn">Generate a joke</button>
+    <div id = "main-container">
+        
+    </div>
+</body>
+</html>
+
+<script>
+
+document.querySelector("#btn").addEventListener("click", dataFunc)
+
+async function dataFunc(){
+    let data = document.querySelector("#data").value 
+console.log(data)
+let obj = {
+    prompt : data
+}
+console.log(obj)
+let getData = await fetch("http://localhost:8080/getJoke",{
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(obj),
+      })
+
+      getData = await getData.json()
+      console.log(getData)
+   document.querySelector("#main-container").innerHTML = getData.msg
+}
+
+
+</script>
